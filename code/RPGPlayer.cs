@@ -2,9 +2,9 @@
 using System;
 using System.Linq;
 
-namespace MinimalExample
+namespace RPGGame
 {
-	partial class MinimalPlayer : Player
+	partial class RPGPlayer : Player
 	{
 		private bool dressed = false;
 		public override void Respawn()

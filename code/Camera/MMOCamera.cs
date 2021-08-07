@@ -77,6 +77,8 @@ namespace Sandbox
 			else
 				input.ViewAngles = orbitAngles;
 
+			//Rotate Camera to original position when moving
+			
 			base.BuildInput( input );
 		}
 	}

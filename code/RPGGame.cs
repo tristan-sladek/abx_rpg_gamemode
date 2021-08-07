@@ -5,12 +5,8 @@ using System;
 using System.IO;
 using System.Threading.Tasks;
 
-//
-// You don't need to put things in a namespace, but it doesn't hurt.
-//
-namespace MinimalExample
+namespace RPGGame
 {
-
 	/// <summary>
 	/// This is your game class. This is an entity that is created serverside when
 	/// the game starts, and is replicated to the client. 
@@ -18,9 +14,9 @@ namespace MinimalExample
 	/// You can use this to create things like HUDs and declare which player class
 	/// to use for spawned players.
 	/// </summary>
-	public partial class MinimalGame : Sandbox.Game
+	public partial class RPGGame : Sandbox.Game
 	{
-		public MinimalGame()
+		public RPGGame()
 		{
 			if ( IsServer )
 			{
@@ -30,7 +26,7 @@ namespace MinimalExample
 				// and when it is created clientside it creates the actual
 				// UI panels. You don't have to create your HUD via an entity,
 				// this just feels like a nice neat way to do it.
-				new MinimalHudEntity();
+				new RPGHud();
 			}
 
 			if ( IsClient )
@@ -46,12 +42,13 @@ namespace MinimalExample
 		{
 			base.ClientJoined( client );
 
-			var player = new MinimalPlayer();
+			var player = new RPGPlayer();
 			client.Pawn = player;
 
 			player.Respawn();
-			
+
 		}
 	}
-
 }
+
+
