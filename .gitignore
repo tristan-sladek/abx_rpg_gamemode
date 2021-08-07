@@ -1,0 +1,11 @@
+# Source 2/Sandbox stuff
+tools_*_*.bin
+*bakeresourcecache*
+
+
+# Misc stuff
+*.csproj
+code/obj/
+code/properties/
+.intermediate/
+.vs/
