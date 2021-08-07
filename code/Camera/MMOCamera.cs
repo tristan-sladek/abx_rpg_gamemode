@@ -21,10 +21,10 @@ namespace Sandbox
 			Pos = pawn.Position + Vector3.Up * 64;
 
 			//look follow mouse vs return to back
-			if( mouse_left || mouse_right )
+			if ( mouse_left || mouse_right )
 				Rot = Rotation.From( orbitAngles );
-			
-			if( smoothYawReturn )
+
+			if ( smoothYawReturn )
 			{
 				orbitAngles.yaw = Rotation.Slerp( Rotation.FromYaw( orbitAngles.yaw ), Rotation.FromYaw( orbitYawTarget ), Time.Delta * 4.0f ).Yaw();
 				Rot = Rotation.From( orbitAngles );
@@ -39,7 +39,7 @@ namespace Sandbox
 				.Run();
 			Pos = tr.EndPos;
 
-			
+
 			FieldOfView = 75;
 			Viewer = null;
 		}
@@ -50,7 +50,7 @@ namespace Sandbox
 			orbitDistance = orbitDistance.Clamp( 0, 1000 );
 
 			mouse_left = input.Down( InputButton.Attack1 );
-			mouse_right = input.Down( InputButton.Attack2 );			
+			mouse_right = input.Down( InputButton.Attack2 );
 
 			// Camera Rotation on Mouse L or R 
 			if ( mouse_left || mouse_right )
@@ -62,20 +62,20 @@ namespace Sandbox
 				smoothYawReturn = false;
 			}
 			else
-			{	
+			{
 				//Rotate Camera to original position when moving
 				if ( !input.AnalogMove.IsNearlyZero() )
 				{
-					orbitYawTarget = input.ViewAngles.Normal.yaw;					
+					orbitYawTarget = input.ViewAngles.Normal.yaw;
 				}
 				smoothYawReturn = !input.AnalogMove.IsNearlyZero();
 			}
-			
+
 			//Character movement based upon mouse
 			if ( !mouse_right )
 				input.AnalogLook = Angles.Zero;
 			else
-            	input.ViewAngles = orbitAngles;
+				input.ViewAngles = orbitAngles;
 
 			base.BuildInput( input );
 		}
