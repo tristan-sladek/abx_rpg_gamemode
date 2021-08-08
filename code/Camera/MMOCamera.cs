@@ -13,7 +13,11 @@ namespace Sandbox
 		private bool smoothYawReturn = false;
 		private bool mouse_left = false;
 		private bool mouse_right = false;
-
+		public Vector3 ClickStart { get; set; }
+		private Angles ViewStart { get; set; }
+		private bool isDragging = false;
+		public bool DraggingPerformed { get; set; }
+		
 		public override void Update()
 		{
 			var pawn = Local.Pawn as AnimEntity;
@@ -51,6 +55,26 @@ namespace Sandbox
 
 			mouse_left = input.Down( InputButton.Attack1 );
 			mouse_right = input.Down( InputButton.Attack2 );
+
+			if ( mouse_left && !isDragging )
+			{
+				ClickStart = input.Cursor.Direction; //Trace.Ray( CurrentView.Position, CurrentView.Position + Input.Cursor.Direction * 10000 ).Run().EndPos;
+				ViewStart = orbitAngles;
+				isDragging = true;
+			}
+			if ( isDragging && ViewStart.Direction.Distance(orbitAngles.Direction) > 0.01f)
+			{
+				DraggingPerformed = true;
+			}
+			if(!isDragging)
+				DraggingPerformed = false;
+
+			if ( input.Released( InputButton.Attack1 ) )
+			{
+				isDragging = false;
+			}
+				
+			
 
 			// Camera Rotation on Mouse L or R 
 			if ( mouse_left || mouse_right )

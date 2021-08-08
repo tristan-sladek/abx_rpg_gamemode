@@ -140,7 +140,20 @@ namespace RPGGame
 			foreach( ModelEntity ent in pawn.Children){
 				ent.RenderAlpha = RenderAlpha;
 			}
-
 		}
+
+		public override void BuildInput(InputBuilder input)
+		{
+			if ( input.Released( InputButton.Attack1 ) && !((MMOCamera)Camera).DraggingPerformed )
+			{
+				var ent = new Prop
+				{
+					Position = Trace.Ray( CurrentView.Position, CurrentView.Position + ((MMOCamera)Camera).ClickStart * 10000 ).Run().EndPos
+				};
+
+				ent.SetModel( "models/citizen_props/crate01.vmdl" );
+			}
+		}
+
 	}
 }
