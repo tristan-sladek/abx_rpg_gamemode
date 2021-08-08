@@ -4,18 +4,30 @@ using System.Linq;
 
 namespace RPGGame
 {
-	partial class RPGPlayer : Player , BaseActor
+	partial class RPGPlayer : Player
 	{
+		[Net]
+		public BaseActor Actor { get; set; }
+		
 		private bool dressed = false;
-		public String ActorName { get; set; }
 
+		public override void Spawn()
+		{
+			base.Spawn();			
+		}
 		public override void Respawn()
 		{
 			SetModel( "models/citizen/citizen.vmdl" );
-
+			
 			base.Respawn();
 
-			ActorName = "PLAYER";
+			if ( Actor == null )
+			{
+				Actor = new BaseActor();
+				Actor.ActorName = "PLAYER";
+				Actor.HP = 100;
+				Actor.MP = 50;
+			}
 
 			EnableAllCollisions = true;
 			EnableDrawing = true;
@@ -103,29 +115,9 @@ namespace RPGGame
 		public override void Simulate( Client cl )
 		{
 			base.Simulate( cl );
-
-			//
-			// If you have active children (like a weapon etc) you should call this to 
-			// simulate those too.
-			//
 			SimulateActiveChild( cl, ActiveChild );
 
-			//
-			// If we're running serverside and Attack1 was just pressed, spawn a ragdoll
-			//
-
-
-			/*
-			if ( IsServer && Input.Pressed( InputButton.Attack1 ) )
-			{
-				var ragdoll = new ModelEntity();
-				ragdoll.SetModel( "models/citizen/citizen.vmdl" );  
-				ragdoll.Position = EyePos + EyeRot.Forward * 40;
-				ragdoll.Rotation = Rotation.LookAt( Vector3.Random.Normal );
-				ragdoll.SetupPhysicsFromModel( PhysicsMotionType.Dynamic, false );
-				ragdoll.PhysicsGroup.Velocity = EyeRot.Forward * 1000;
-			}
-			*/			
+				
 		}
 
 		public override void OnKilled()
@@ -149,12 +141,18 @@ namespace RPGGame
 		[ServerCmd]
 		public static void SpawnProp(Vector3 pos)
 		{
+			var ent = new BaseRPGPawn
+			{
+				Position = pos
+			};
+			/*
 			var ent = new Prop
 			{
 				Position = pos
 			};
 
 			ent.SetModel( "models/citizen_props/crate01.vmdl" );
+			*/
 		}
 		[ServerCmd]
 		public static void DeleteEnt(Vector3 start, Vector3 end )
@@ -168,44 +166,28 @@ namespace RPGGame
 
 		public override void BuildInput(InputBuilder input)
 		{
+			var cam = Camera as MMOCamera;
+			var anim = Animator as RPGAnimator;
+
 			if ( input.Released( InputButton.Menu ) )
 			{
 				SpawnProp( Trace.Ray( CurrentView.Position, CurrentView.Position + Input.Cursor.Direction * 10000 ).Run().EndPos );
 			}
-			if ( input.Released( InputButton.Attack1 ) && !((MMOCamera)Camera).DraggingPerformed )
+			if ( input.Released( InputButton.Attack1 ) && !cam.DraggingPerformed )
 			{
 				//DeleteEnt(  );
-				var tr = Trace.Ray( CurrentView.Position, CurrentView.Position + ((MMOCamera)Camera).ClickStart * 10000 ).EntitiesOnly().Run();
-				if ( tr.Entity != null && !(tr.Entity is Player) )
+				var tr = Trace.Ray( CurrentView.Position, CurrentView.Position + cam.ClickStart * 10000 ).EntitiesOnly().Run();
+				var actor = tr.Entity;// as BaseActor;
+				Log.Info( tr.Entity );
+				if ( actor != null )
 				{
-					((RPGAnimator)Animator).LookAtEntity =  tr.Entity;
+					anim.LookAtEntity =  tr.Entity;
 				}
 				else
 				{
-					((RPGAnimator)Animator).LookAtEntity = null;
-				}
-				
+					anim.LookAtEntity = null;
+				}				
 			}
-			/*
-			if ( input.Released( InputButton.Menu ) ) 
-			{
-				var ent = new Prop
-				{
-					Position = Trace.Ray( CurrentView.Position, CurrentView.Position + Input.Cursor.Direction * 10000 ).Run().EndPos
-				};
-
-				ent.SetModel( "models/citizen_props/crate01.vmdl" );
-			}
-			if ( input.Released( InputButton.Attack1 ) && !((MMOCamera)Camera).DraggingPerformed )
-			{
-				var tr = Trace.Ray( CurrentView.Position, CurrentView.Position + ((MMOCamera)Camera).ClickStart * 10000 ).EntitiesOnly().Run();
-				if(tr.Entity != null && tr.Entity != this)
-				{
-					tr.Entity.Delete();
-				}
-
-			}
-			*/
 		}
 
 	}

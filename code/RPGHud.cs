@@ -1,17 +1,20 @@
 ﻿using Sandbox;
 using Sandbox.UI;
 
-[Library]
-public partial class RPGHud : HudEntity<RootPanel>
+namespace RPGGame
 {
-	public RPGHud()
+	[Library]
+	public partial class RPGHud : HudEntity<RootPanel>
 	{
-		if ( !IsClient )
-			return;
+		public RPGHud()
+		{
+			if ( !IsClient )
+				return;
 
-		RootPanel.AddChild<ChatBox>();
-		RootPanel.AddChild<CameraControlPanel>();
-		RootPanel.AddChild<RPGHealth>();
-		RootPanel.AddChild<RPGMana>();
+			RootPanel.AddChild<ChatBox>();
+			RootPanel.AddChild<CameraControlPanel>();
+			RootPanel.AddChild<RPGHealth>();
+			RootPanel.AddChild<RPGMana>();
+		}
 	}
 }

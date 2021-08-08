@@ -38,7 +38,7 @@ namespace Sandbox
 
 			Vector3 lookPos = aimPos;
 			if ( LookAtEntity != null )
-				lookPos = LookAtEntity.Position;
+				lookPos = LookAtEntity.EyePos;
 			
 
 			//

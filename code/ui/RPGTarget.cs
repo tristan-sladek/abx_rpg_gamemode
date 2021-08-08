@@ -4,18 +4,17 @@ using Sandbox.UI.Construct;
 using System;
 using System.Reflection.Metadata;
 using System.Threading.Tasks;
-
 namespace RPGGame
 {
 	[Library]
-	public partial class RPGHealth : Panel
+	public partial class RPGTarget : Panel
 	{
-		public static RPGHealth Instance;
+		public static RPGTarget Instance;
 		public Label HP;
 		public Panel HPBack;
 		public Panel HPFore;
 		public float Health { get; set; }
-		public RPGHealth()
+		public RPGTarget()
 		{
 			Instance = this;
 			StyleSheet.Load( "/ui/RPGHud.scss" );
@@ -31,10 +30,8 @@ namespace RPGGame
 			base.Tick();
 			float size = 196; //magic number, size of element's width
 			var ply = Local.Pawn as RPGPlayer;
+			if ( ply == null ) return;
 			var actor = ply.Actor;
-			if ( actor == null ) return;
-
-
 
 			Health = actor.HP;
 			//Health = ((Time.Now * 2) % 100);
