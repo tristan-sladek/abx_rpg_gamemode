@@ -31,7 +31,7 @@ public partial class RPGHealth : Panel
 		base.Tick();
 		float size = 196; //magic number, size of element's width
 
-		Health = (Time.Now % 100);
+		Health = ((Time.Now * 2) % 100);
 		HP.Text = Health.CeilToInt().ToString();
 		HPFore.Style.Width = Health * ( size / 100 );
 		HPFore.Style.Dirty();

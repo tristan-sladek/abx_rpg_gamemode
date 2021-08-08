@@ -65,5 +65,52 @@ RPGHealth {
 	}
 }
 
+RPGMana {
+	position: absolute;
+	background-color: none;
+	bottom: 2%;
+	left: 2%;
+	font-family: SourceSansPro;
+	font-style: italic;
+	color: white;
+
+	.MPText {
+		margin: 8px 8px;
+		font-size: 12px;
+		font-weight: bold;
+		text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000;
+	}
+
+	.MPValue {
+		margin: 2px, 18px;
+		font-size: 24px;
+		text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000;
+	}
+
+	.MPBack {
+		margin: 1px 2px;
+		height: 14px;
+		width: 196px;
+		background-color: #323c39;
+		position: absolute;
+	}
+
+	.MPFore {
+		//background-color: #DC2626;
+		background-image: linear-gradient(to right, #306082, #639bff );
+		width: 0%;
+		height: 100%;
+	}
+
+	.MPBorder {
+		height: 16px;
+		width: 200px;
+		background-color: none;
+		border: 2px solid #323c39;
+		border-radius: 6px;
+		position: absolute;
+	}
+}
+
 
 
