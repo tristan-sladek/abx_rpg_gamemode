@@ -13,10 +13,7 @@ public partial class CameraControlPanel : Panel
 	{
 		Instance = this;
 
-		StyleSheet.Load( "/ui/RPGHud.scss" );
-
-		var body = Add.Panel("body");
-
+		StyleSheet.Load( "/ui/RPGHud.scss" );		
 	}
 
 	public override void Tick()

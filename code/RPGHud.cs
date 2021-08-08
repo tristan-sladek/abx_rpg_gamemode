@@ -11,5 +11,6 @@ public partial class RPGHud : HudEntity<RootPanel>
 
 		RootPanel.AddChild<ChatBox>();
 		RootPanel.AddChild<CameraControlPanel>();
+		RootPanel.AddChild<RPGHealth>();
 	}
 }
