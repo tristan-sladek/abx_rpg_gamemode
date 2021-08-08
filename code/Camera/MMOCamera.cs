@@ -15,7 +15,7 @@ namespace Sandbox
 		private bool mouse_right = false;
 		public Vector3 ClickStart { get; set; }
 		private Angles ViewStart { get; set; }
-		private bool isDragging = false;
+		public bool isDragging = false;
 		public bool DraggingPerformed { get; set; }
 		
 		public override void Update()
@@ -42,8 +42,7 @@ namespace Sandbox
 				.Radius( 8 )
 				.Run();
 			Pos = tr.EndPos;
-
-
+			
 			FieldOfView = 75;
 			Viewer = null;
 		}
@@ -56,7 +55,7 @@ namespace Sandbox
 			mouse_left = input.Down( InputButton.Attack1 );
 			mouse_right = input.Down( InputButton.Attack2 );
 
-			if ( mouse_left && !isDragging )
+			if ( (mouse_left || mouse_right) && !isDragging )
 			{
 				ClickStart = input.Cursor.Direction; //Trace.Ray( CurrentView.Position, CurrentView.Position + Input.Cursor.Direction * 10000 ).Run().EndPos;
 				ViewStart = orbitAngles;
@@ -69,7 +68,7 @@ namespace Sandbox
 			if(!isDragging)
 				DraggingPerformed = false;
 
-			if ( input.Released( InputButton.Attack1 ) )
+			if ( !mouse_left && !mouse_right )
 			{
 				isDragging = false;
 			}
@@ -77,7 +76,7 @@ namespace Sandbox
 			
 
 			// Camera Rotation on Mouse L or R 
-			if ( mouse_left || mouse_right )
+			if ( isDragging )
 			{
 				orbitAngles.yaw += input.AnalogLook.yaw;
 				orbitAngles.pitch += input.AnalogLook.pitch;

@@ -152,6 +152,7 @@ namespace RPGGame
 				};
 
 				ent.SetModel( "models/citizen_props/crate01.vmdl" );
+
 			}
 		}
 

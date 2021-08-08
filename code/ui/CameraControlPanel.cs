@@ -20,7 +20,7 @@ public partial class CameraControlPanel : Panel
 	{
 		base.Tick();
 		
-		SetClass( "enableCursor", !(Input.Down( InputButton.Attack1 ) || Input.Down( InputButton.Attack2 )) );
+		SetClass( "enableCursor", !((MMOCamera)Local.Pawn.Camera).isDragging );
 		//Trace.Ray( CurrentView.Position, CurrentView.Position + Input.Cursor.Direction * 10000 ).Run().EndPos;				
 	}
 }
