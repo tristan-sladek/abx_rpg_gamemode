@@ -4,14 +4,18 @@ using System.Linq;
 
 namespace RPGGame
 {
-	partial class RPGPlayer : Player
+	partial class RPGPlayer : Player , BaseActor
 	{
 		private bool dressed = false;
+		public String ActorName { get; set; }
+
 		public override void Respawn()
 		{
 			SetModel( "models/citizen/citizen.vmdl" );
 
 			base.Respawn();
+
+			ActorName = "PLAYER";
 
 			EnableAllCollisions = true;
 			EnableDrawing = true;
@@ -19,7 +23,7 @@ namespace RPGGame
 			EnableShadowInFirstPerson = true;
 
 			Camera = new MMOCamera();
-			Animator = new StandardPlayerAnimator();
+			Animator = new RPGAnimator();
 			Controller = new WalkController();
 
 			if ( !dressed )
@@ -109,7 +113,7 @@ namespace RPGGame
 			//
 			// If we're running serverside and Attack1 was just pressed, spawn a ragdoll
 			//
-			
+
 
 			/*
 			if ( IsServer && Input.Pressed( InputButton.Attack1 ) )
@@ -121,7 +125,7 @@ namespace RPGGame
 				ragdoll.SetupPhysicsFromModel( PhysicsMotionType.Dynamic, false );
 				ragdoll.PhysicsGroup.Velocity = EyeRot.Forward * 1000;
 			}
-			*/
+			*/			
 		}
 
 		public override void OnKilled()
@@ -142,18 +146,66 @@ namespace RPGGame
 			}
 		}
 
+		[ServerCmd]
+		public static void SpawnProp(Vector3 pos)
+		{
+			var ent = new Prop
+			{
+				Position = pos
+			};
+
+			ent.SetModel( "models/citizen_props/crate01.vmdl" );
+		}
+		[ServerCmd]
+		public static void DeleteEnt(Vector3 start, Vector3 end )
+		{
+			var tr = Trace.Ray(start,end).EntitiesOnly().Run();
+			if ( tr.Entity != null && !(tr.Entity is Player) )
+			{
+				tr.Entity.Delete();
+			}
+		}
+
 		public override void BuildInput(InputBuilder input)
 		{
+			if ( input.Released( InputButton.Menu ) )
+			{
+				SpawnProp( Trace.Ray( CurrentView.Position, CurrentView.Position + Input.Cursor.Direction * 10000 ).Run().EndPos );
+			}
 			if ( input.Released( InputButton.Attack1 ) && !((MMOCamera)Camera).DraggingPerformed )
+			{
+				//DeleteEnt(  );
+				var tr = Trace.Ray( CurrentView.Position, CurrentView.Position + ((MMOCamera)Camera).ClickStart * 10000 ).EntitiesOnly().Run();
+				if ( tr.Entity != null && !(tr.Entity is Player) )
+				{
+					((RPGAnimator)Animator).LookAtEntity =  tr.Entity;
+				}
+				else
+				{
+					((RPGAnimator)Animator).LookAtEntity = null;
+				}
+				
+			}
+			/*
+			if ( input.Released( InputButton.Menu ) ) 
 			{
 				var ent = new Prop
 				{
-					Position = Trace.Ray( CurrentView.Position, CurrentView.Position + ((MMOCamera)Camera).ClickStart * 10000 ).Run().EndPos
+					Position = Trace.Ray( CurrentView.Position, CurrentView.Position + Input.Cursor.Direction * 10000 ).Run().EndPos
 				};
 
 				ent.SetModel( "models/citizen_props/crate01.vmdl" );
+			}
+			if ( input.Released( InputButton.Attack1 ) && !((MMOCamera)Camera).DraggingPerformed )
+			{
+				var tr = Trace.Ray( CurrentView.Position, CurrentView.Position + ((MMOCamera)Camera).ClickStart * 10000 ).EntitiesOnly().Run();
+				if(tr.Entity != null && tr.Entity != this)
+				{
+					tr.Entity.Delete();
+				}
 
 			}
+			*/
 		}
 
 	}

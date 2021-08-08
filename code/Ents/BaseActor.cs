@@ -2,7 +2,8 @@
 
 namespace Sandbox
 {
-	class BaseActor : AnimEntity
+	interface BaseActor
 	{
+		public string ActorName { get; set; }
 	}
 }
