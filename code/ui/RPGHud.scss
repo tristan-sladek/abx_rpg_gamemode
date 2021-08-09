@@ -18,11 +18,16 @@ CameraControlPanel {
 	}
 }
 
-RPGHealth {
+RPGStatus {
 	position: absolute;
-	background-color: none;
+	bottom: 5%;
+	left: 3%;
+}
+
+RPGStatus .HPBlock {
+	position: absolute;
 	bottom: 4%;
-	left: 2%;
+	background-color: none;
 	font-family: SourceSansPro;
 	font-style: italic;
 	color: white;
@@ -65,11 +70,9 @@ RPGHealth {
 	}
 }
 
-RPGMana {
+RPGStatus .MPBlock {
 	position: absolute;
 	background-color: none;
-	bottom: 2%;
-	left: 2%;
 	font-family: SourceSansPro;
 	font-style: italic;
 	color: white;

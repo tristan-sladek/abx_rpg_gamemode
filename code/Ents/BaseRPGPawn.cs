@@ -1,7 +1,7 @@
 ﻿using Sandbox;
 using Sandbox.UI;
 
-namespace RPGGame
+namespace Sandbox
 { 
 	class BaseRPGPawn : BaseActor
 	{

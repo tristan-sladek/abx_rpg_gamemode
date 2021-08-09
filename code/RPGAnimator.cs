@@ -1,11 +1,6 @@
-﻿using Sandbox.Rcon;
+﻿using Sandbox;
+using Sandbox.Rcon;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Numerics;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Sandbox
 {
@@ -39,7 +34,6 @@ namespace Sandbox
 			Vector3 lookPos = aimPos;
 			if ( LookAtEntity != null )
 				lookPos = LookAtEntity.EyePos;
-			
 
 			//
 			// Look in the direction what the player's input is facing

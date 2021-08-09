@@ -1,7 +1,7 @@
 ﻿using Sandbox;
 using Sandbox.UI;
 
-namespace RPGGame
+namespace Sandbox
 {
 	[Library]
 	public partial class RPGHud : HudEntity<RootPanel>
@@ -13,8 +13,7 @@ namespace RPGGame
 
 			RootPanel.AddChild<ChatBox>();
 			RootPanel.AddChild<CameraControlPanel>();
-			RootPanel.AddChild<RPGHealth>();
-			RootPanel.AddChild<RPGMana>();
+			RootPanel.AddChild<RPGStatus>();
 		}
 	}
 }

@@ -5,7 +5,7 @@ using System;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace RPGGame
+namespace Sandbox
 {
 	/// <summary>
 	/// This is your game class. This is an entity that is created serverside when
@@ -14,7 +14,7 @@ namespace RPGGame
 	/// You can use this to create things like HUDs and declare which player class
 	/// to use for spawned players.
 	/// </summary>
-	public partial class RPGGame : Sandbox.Game
+	public partial class RPGGame : Game
 	{
 		public RPGGame()
 		{

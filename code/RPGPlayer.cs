@@ -1,8 +1,6 @@
 ﻿using Sandbox;
-using System;
-using System.Linq;
 
-namespace RPGGame
+namespace Sandbox
 {
 	partial class RPGPlayer : Player
 	{
