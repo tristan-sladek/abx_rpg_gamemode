@@ -18,7 +18,21 @@ namespace Sandbox
 			SetupPhysicsFromCapsule( PhysicsMotionType.Keyframed, Capsule.FromHeightAndRadius( 72, 8 ) );
 
 			string[] names = { "Terry", "Larry", "Jerry" };
-			ActorName = names[new Random().Next( names.Length - 1)];
+			var ind = new Random().Next( names.Length );
+			ActorName = names[ind];
+
+			var model = new[]
+			{
+				"models/citizen_clothes/hat/hat_hardhat.vmdl",
+				"models/citizen_clothes/hat/hat_woolly.vmdl",
+				"models/citizen_clothes/hat/hat_securityhelmet.vmdl"
+			}[ind];
+
+			var hat = new ModelEntity();
+			hat.SetModel( model );
+			hat.SetParent( this, true );
+			hat.EnableShadowInFirstPerson = true;
+			hat.EnableHideInFirstPerson = true;
 		}
 
 		public override void Simulate( Client cl )
