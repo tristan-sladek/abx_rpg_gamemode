@@ -6,6 +6,7 @@ namespace Sandbox
 	{
 		[Net]
 		public BaseActor Actor { get; set; }
+		public Entity Target { get; set; }
 		
 		private bool dressed = false;
 
@@ -179,10 +180,12 @@ namespace Sandbox
 				Log.Info( tr.Entity );
 				if ( actor != null )
 				{
+					Target = tr.Entity;
 					anim.LookAtEntity =  tr.Entity;
 				}
 				else
 				{
+					Target = null;
 					anim.LookAtEntity = null;
 				}				
 			}

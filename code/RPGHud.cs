@@ -14,6 +14,7 @@ namespace Sandbox
 			RootPanel.AddChild<ChatBox>();
 			RootPanel.AddChild<CameraControlPanel>();
 			RootPanel.AddChild<RPGStatus>();
+			RootPanel.AddChild<RPGTargetBar>();
 		}
 	}
 }

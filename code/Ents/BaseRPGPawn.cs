@@ -1,5 +1,6 @@
 ﻿using Sandbox;
 using Sandbox.UI;
+using System;
 
 namespace Sandbox
 { 
@@ -15,6 +16,9 @@ namespace Sandbox
 			EyePos = Position + Vector3.Up * 64;
 			CollisionGroup = CollisionGroup.Player;
 			SetupPhysicsFromCapsule( PhysicsMotionType.Keyframed, Capsule.FromHeightAndRadius( 72, 8 ) );
+
+			string[] names = { "Terry", "Larry", "Jerry" };
+			ActorName = names[new Random().Next( names.Length - 1)];
 		}
 
 		public override void Simulate( Client cl )
