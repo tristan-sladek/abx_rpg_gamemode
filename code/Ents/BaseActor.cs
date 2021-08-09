@@ -2,7 +2,7 @@
 
 namespace Sandbox
 {
-	partial class BaseActor : AnimEntity
+	public partial class BaseActor : AnimEntity
 	{
 		[Net] public string ActorName { get; set; }		
 		[Net] public float HP { get; set; } //Temporary

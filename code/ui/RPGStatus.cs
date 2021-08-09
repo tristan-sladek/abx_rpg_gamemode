@@ -40,18 +40,17 @@ namespace Sandbox
 		public override void Tick()
 		{
 			base.Tick();
-			float size = 196; //magic number, size of element's width
 			var ply = Local.Pawn as RPGPlayer;
 			var actor = ply.Actor;
 			if ( actor == null ) return;
 
 			//TODO: change when you figure out how to do % based style updates
 			HP.Text = actor.HP.CeilToInt().ToString();
-			HPFore.Style.Width = actor.HP * (size / 100);
+			HPFore.Style.Width = Length.Fraction( actor.HP / 100 );
 			HPFore.Style.Dirty();
 
 			MP.Text = actor.MP.CeilToInt().ToString();
-			MPFore.Style.Width = actor.MP * (size / 100);
+			MPFore.Style.Width = Length.Fraction( actor.MP / 100 );
 			MPFore.Style.Dirty();
 		}
 	}

@@ -35,6 +35,8 @@ namespace Sandbox
 			if (tar != null )
 			{
 				Name.Text = tar.ActorName;
+				HPFore.Style.Width = Length.Fraction( tar.HP / 100 );
+				HPFore.Style.Dirty();
 			}
 
 			

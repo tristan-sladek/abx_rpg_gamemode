@@ -1,0 +1,42 @@
+﻿RPGNameTag {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    left: 0px;
+    bottom: 0px;
+
+    BaseRPGNameTag {
+        font-family: Poppins;
+        position: absolute;
+        font-weight: 500;
+        color: white;
+        //background-color: rgba( #222, 0.95 );
+        font-size: 40px;
+        transform-origin: 0% 0%;
+        border-radius: 10px;
+        //align-items: center;
+        justify-content: center;
+        flex-direction: row-reverse;
+        text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000;
+
+        Name {
+            padding: 1px 60px;
+            padding-left: 40px;
+        }
+
+        .HPBack {
+            margin: 50px 2px;
+            height: 14px;
+            width: 196px;
+            background-color: #323c39;
+            position: absolute;
+        }
+
+        .HPFore {
+            //background-color: #DC2626;
+            background-image: linear-gradient(to right, #4B692F, #6ABE30 );
+            width: 0%;
+            height: 100%;
+        }
+    }
+}

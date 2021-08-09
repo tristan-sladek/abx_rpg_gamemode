@@ -20,6 +20,8 @@ namespace Sandbox
 			string[] names = { "Terry", "Larry", "Jerry" };
 			var ind = new Random().Next( names.Length );
 			ActorName = names[ind];
+			HP = new Random().Next(1,100);
+			MP = 20;
 
 			var model = new[]
 			{
