@@ -127,6 +127,7 @@ namespace Sandbox.UI
 				}
 			}
 			tag.UpdateFromActor( actor );
+			tag.Name.Text = actor.ActorName + " " + actor.HP.ToString();
 
 			var screenPos = labelPos.ToScreen();
 
