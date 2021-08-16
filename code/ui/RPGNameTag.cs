@@ -147,6 +147,7 @@ namespace Sandbox.UI
 			
 			tag.Style.Transform = transform;
 			tag.HPFore.Style.Width = Length.Fraction( actor.HP / 100 );
+			tag.HPFore.Style.Dirty();
 			tag.Style.Dirty();
 
 			return true;
