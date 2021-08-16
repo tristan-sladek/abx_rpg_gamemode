@@ -116,7 +116,15 @@ namespace Sandbox
 			base.Simulate( cl );
 			SimulateActiveChild( cl, ActiveChild );
 
+			if ( !Target.IsValid() )
+			{
+				Target = null;
+				var anim = Animator as RPGAnimator;
+				anim.LookAtEntity = null;
+			}
 				
+
+
 		}
 
 		public override void OnKilled()
@@ -163,6 +171,18 @@ namespace Sandbox
 			}
 		}
 
+		[ServerCmd]
+		public static void ActorTakeDamage(int ent, int damage )
+		{
+			var actor = Entity.FindByIndex(ent) as BaseActor;
+			if ( actor != null )
+			{
+				actor.HP -= damage;
+				if ( actor.HP <= 0 )
+					actor.Delete();
+			}
+		}
+
 		public override void BuildInput(InputBuilder input)
 		{
 			var cam = Camera as MMOCamera;
@@ -188,6 +208,12 @@ namespace Sandbox
 					Target = null;
 					anim.LookAtEntity = null;
 				}				
+			}
+			if ( input.Released( InputButton.Slot1 ) )
+			{
+				if(Target != null)
+					ActorTakeDamage( Target.NetworkIdent, 20 );
+				anim.LookAtEntity = Target;
 			}
 		}
 

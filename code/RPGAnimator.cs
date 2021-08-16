@@ -32,7 +32,7 @@ namespace Sandbox
 			Vector3 aimPos = Pawn.EyePos + Input.Rotation.Forward * 200;
 
 			Vector3 lookPos = aimPos;
-			if ( LookAtEntity != null )
+			if ( LookAtEntity.IsValid() )
 				lookPos = LookAtEntity.EyePos;
 
 			//
